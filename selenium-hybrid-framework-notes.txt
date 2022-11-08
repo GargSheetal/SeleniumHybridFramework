@@ -1,0 +1,735 @@
+
+
+
+								Selenium Framework (Hybrid)
+								---------------------------
+	
+	
+Site used:
+----------
+url: https://www.demo.guru99.com/V4/
+
+user id: mngr444679
+password: savudes
+(This is valid only for 20 days)
+
+
+Stages in the project:
+----------------------
+1) Implementation
+2) Execution
+3) Maintenance
+
+	Phase-1: Implementation
+	-----------------------
+	- Create Maven Project
+	- Update pom.xml
+	- Create Page objects
+	- Create Basic Test case
+	- Add logs to test case
+	- Read common values from properties file
+	- Run test case on desired browser
+	- Add extent report
+	- Create Data Driven Test case
+	- Adding new Test case
+	
+	
+	Phase-2: Execution
+	-------------------
+	- Run test cases with Maven pom.xml
+	- Run test cases through Maven CLI(Command Line Interface)
+	- Run test case using run.bat
+	- Run test case using Jenkins (using bat file)
+	
+	
+	Phase-3: Maintenance
+	--------------------
+	- Creating repository in GITHUB
+	- Commit the project code in local repository
+	- Push the project code to GITHUB remote repository from local GIT repository
+	
+	
+	
+	# Maven:
+	---------
+		Maven is a plugin in eclipse. 
+		It comes with pom.xml. Add dependencies of all the softwares, drivers and plugins to the pom.xml. The jar files of all these softwares, drivers and 
+		plugins will be automatically downloaded by pom.xml and associate them with the project.
+		We can execute the project without eclipse usinf pom.xml using CLI.
+		
+	
+	1) Implementation
+	
+		1) How to create a Maven project:
+		  -------------------------------
+		
+		File--> new--> Other--> Maven--> click and select Maven Project--> select default workspace--> check create a simple project--> next
+		provide group id and artifact id--> finish
+		
+		Group Id: Company name
+		Artifact Id: Project name
+		
+		
+		
+		Create packages in the Project:
+		-------------------------------
+		1) com.project.testcases
+		2) com.project.pageObjects
+		3) com.project.testdata
+		4) com.project.utilities
+		
+		Create some Folders in the project:
+		-----------------------------------
+		1) Configurations
+		2) Screenshots
+		3) Drivers
+		
+		
+		
+		2) Update pom.xml:
+		  ----------------
+			Add following dependencies from mvnrepository.com
+		
+			1) selenium-java
+			2) testng
+			3) poi
+			4) poi-ooxml
+			5) extentreports
+			6) webdrivermanager
+			7) log4j-api
+			8) log4j-core
+			9) slf4j-api
+			10) slg4j-nop
+			11) commons-io
+			12) commons-lang3
+	
+		
+		
+		3) Create Page Objects:
+		  ---------------------
+		  Create a class for page objects and their methods for every page in the pageObjects folder.
+		  
+		  Page Object Model:
+		  -----------------
+			It is organising the page elements.
+			In this method we divide the following statement in two classes:
+					driver.findElement(By.id("xxx")).sendkeys("aaaa");
+					------------------------------   --------------- 
+						Identification of Element		Operation on the Element
+			
+			Class 1: for identifying the elements
+			Class 2: Performs operations on the webElements by calling class 1.
+		  
+		  
+		4) Create Base class:
+		  -------------------
+			For every Test case there will be 3 activities:
+			1) Set up ---> contains all the pre-requisites like setting up the Webdriver with the browser. It usually comes @BeforeClass
+			2) Test case ---> contains the actual steps to run the test case
+			3) Tear down ---> exiting from the test case like closing the browser. It usually comes @AfterClass
+			
+			Set up and Tear down activities will be the same for all test cases. 
+			So, create a seperate Base class and put everything there that is required for every test case. And extend the Base class to every 
+			testcase.
+			
+			## Base Class should be part of Testcase Package.
+			
+		
+		
+		5) Add logs to Testcases:
+		  -----------------------
+		    1) Add dependencies for log4j in the pom.xml i.e. log4j-core & log4j-api
+			2) Paste log4j2.properties file or log4j2.xml file in the project directory in src/test/resources folder.
+			3) Create logger object for Logger class as follows:
+					
+				//Here we need to create logger instance so we need to pass class name
+				Such as:
+				public static Logger logger = LogManager.getLogger(BaseClass.class);
+				
+			Import the following:
+			
+			import org.apache.logging.log4j.LogManager;
+			import org.apache.logging.log4j.Logger;
+			
+			References:
+			https://www.dataset.com/blog/maven-log4j2-project/
+			
+		
+		
+		6) Reading common values from Properties file:
+		  --------------------------------------------
+		  It is config.properties file. It contains all the common page variables along with their values that we have in BaseClass.
+		  This file should be made in Configuration folder. In config.properties file, we do not use any keywords or datatype from java as 
+		  it is not a java file.
+		  So, BaseClass only have the variables and their value comes config.properties file.
+		  We need to make one more utility class called as ReadConfig.java to read values from config.properties file. We need to make this class
+		  in src/test/resources/utility folder or package.
+		  Then we have to get those variables's value from Read.config.java class to BaseClass.
+		  Utility files are supporting files.
+		  
+			config.properties file	  >>		ReadConfig.java			>>		 	BaseClass		
+			(contains all varaibles			   (utility class which				   (gets the values of variables
+			 & their values)					reads values from					from ReadConfig.java)
+												config.properties file)
+												
+												
+												
+		config.properties:
+		./ represents the project home directory path. It can also be used in java classes.
+		\\ for path separator 
+		
+		ReadConfig.java:
+		1) Make an object of Properties class.
+		2) Create a constructor(They have same name as the class). Inside the constructor make an object of File class.
+		3) Put a try catch block inside the constructor making an object of FileInputStream( this class will import and read 
+		   config.properties file)
+		4) Make methods for each variable to read their value. These methods must have a return type and the Datatype of the return type.
+		
+		Changing the BaseClass:
+		1) Make an object of ReadConfig class in BaseClass and import ReadConfig class. It will automatically invoke the constructor in the
+		   ReadConfig class and load the config file in BaseClass.
+		2) Use ReadConfig class object to load the values of the variables in the BaseClass.
+		
+		
+		
+		
+		7) Run test case on desired browser:
+		  ----------------------------------
+		  1) Add @Parameters("browser") over the BaseClass. Add this browser parameter in the testng.xml. BaseClass will take this browser
+		     parameter from testng.xml.
+		  2) SetUp method in BaseClass will take the same variable parameter. Add String browser to this method.
+		  3) Setup the browser in nested if...else if statements
+				
+				if(browser.equals("chrome"))
+				{
+					WebDriverManager.chromedriver().setup();
+					driver = new ChromeDriver();
+				}
+				else if(browser.equals("firefox"))
+				{
+					WebDriverManager.firefoxdriver().setup();
+					driver=new FirefoxDriver();
+				}
+				
+		  4) Add the driver.get(baseURL); statement at the end and remove from the testclass.P
+		  5) Create an xml file at the project level.
+				right click project > new > file > name it with .xml > finish
+				
+			 An xml file will be created under your project but will give an error. Add the following statement in the first line to rectify it.
+					
+					<?xml version="1.0" encoding="UTF-8"?>
+			
+
+			 Another method to do the above steps:
+			 - Right click the testcase class > TestNG > Convert to TestNg
+			 - Give the suite name, test name, class name.
+			 - Add parameter tag above classes tag as follows:
+				<parameter name="browser" value="chrome"></parameter>
+			 - Run as TestNG test from the xml file
+		     - Keep changing value of parameter to other browsers to test the testcases on all kinds of browsers.
+			 
+			 
+			
+			
+		8) Adding extent reports:
+		  -----------------------
+		   Prerequisites for adding extent reports:
+		   1) Add dependency for extent reports in pom.xml
+		   2) Add extent-config.xml file in the project home directory. It is a configuration file responsible for the appearance of the report.
+		   3) Create a Listeners class & name it as Reporting.java in the utilities folder and extend it to the TestListenerAdapter class.
+		      Create all the testng listener methods there like onTestStart, onTestFailure
+		   4) Add this listener class in testng.xml file with the help of listeners tags
+		   5) Add a takeScreenshot method in the BaseClass.
+		   
+		   Extent Reports:
+		   ---------------
+			3 classes are provided by ExtentReports in java
+
+			1) ExtentSparkReporter: 
+				This class is responsible for look and feel of your report. Like Name of the report
+				
+			2) ExtentReports: 
+				This class is used to create entries in your report
+				
+			3) ExtentTest:
+				This class is used to update status in your report
+				
+				- Make a class for extent reports such as Reporting.java 
+				- Declare the driver object and objects of the extent report classes . Like: public ExtentSparkReporter sparkReporter;
+				- Create a method to set extent reports such as setExtent()
+				- Instantiate the objects of the extent report classes. 
+					Like: 
+					sparkReporter=new ExtentSparkReporter(System.getProperty("user.dir")+"/test-output/ExtentReports.html"); //provide the path 
+								of the folder where you want to generate extent reports 
+				
+				
+			
+			System.getProperty("user.dir") --> gives the location of the current project 
+			
+			
+			
+			
+		9) Create Data Driven test case:
+		  ------------------------------
+		  Pre-requisites:
+		  1) Add Apache poi dependency in pom.xml -- poi and poi-ooxml
+		  2) XlS file (test data) -- paste this file in the src/test/resources/testData folder
+		  3) XLUtils file to do operations on excel file -- add this file in the utilities package.
+		  4) Use @DataProvider annotation
+		  
+		  - Create a new test class under testcases package for data driven testing
+		  - Create a method of return type for reading the excel file named getData(). Give it DataProvider annotation and name the dataprovider.
+		  - In this class give the path for xls file which contain the test data. Using the XLUtils file get the row num and column count
+		  - Store this data in an String array. Write a 2-dimensional for loop for reading the data from this array.
+		  - Create another method for running the login test named loginDDT(). Provide @Test annotation and the dataProvider here.
+		  - Make an object of the page object class whose elements are required here. Add more WebElements and method to the page object class
+		    if necessary. Write the login test using methods from the page object class.
+		  - Write if else loop for different scenario in the test such as when test fails or test passes.
+		  
+		  
+		
+		
+		10) Adding new Test case:
+		   ----------------------
+		   - Add page objects for this test 
+		   - Write the test case
+		   
+		   
+		   
+		   
+	2) Execution:
+	   ----------
+	   
+	   1) Run test cases with Maven pom.xml:
+	     -----------------------------------
+		 There are 2 kind of enteries in pom.xml:
+		 1) dependencies
+		 2) 2 plugins - mvn compiler and surefire plugin
+		    Inside te surefire plugin - mention the testng.xml file
+			
+		Now from pom.xml--> run as Maven test
+		
+		
+		
+		2) Run test cases through Maven CLI(Command Line Interface):
+		  ----------------------------------------------------------
+		  Install maven on windows or whichever OS you have.
+		  Maven is available in 2 ways:
+		  1. Eclipse plugin
+		  2. Complete software on OS
+		  
+		  1) Download maven for windows from https://maven.apache.org/download.cgi (bin.zip file) Extract the zip file and keep in C drive or
+		     wherever your other program files are. Keep it directly in a drive. Don't keep it in a folder. 
+		  2) Now open the unzipped folder and go to the bin folder. Copy its path > C:\apache-maven-3.8.6\bin
+		  3) This PC > right click > Properties > Advanced system settings > Environment variables > In System variables Select Path > new > 
+			paste the path till bin here > Ok
+		  4) In System Variables > new > Write M2_HOME in varaible name > paste the path of the mvn-apache (C:\apache-maven-3.8.6\) in variable value.
+		  5) In System Variables > new > Write MAVEN_HOME in varaible name > paste the path of the mvn-apache (C:\apache-maven-3.8.6\) in variable value
+			 Do Not give th epat till bin
+		  6) Select OK. Maven is installed.
+		  
+		  Error: [Error] No compiler is provided in this environment. Perhaps you are running on a JRE rather than a JDK? 
+		  Solution : Refer Link:  https://roufid.com/no-compiler-is-provided-in-this-environment/
+		
+		
+		  Copy the location of your project: Righht click the project in eclipse > Properties > Copy the location
+				C:\Sheetal\QA_training\eclipse-workspace\SeleniumHybridFramework
+				
+		  Commnds in cmd:
+		  ---------------
+		  1) cd C:\Sheetal\QA_training\eclipse-workspace\SeleniumHybridFramework (Location of the project)
+				This step will take it to the project directory
+		  2) dir --> If you write dir in the cmd it will show all the files in the project.
+		  3) mvn clean install
+		  4) mvn test
+		  
+		  
+		  Error: Failed to execute goal org.apache.maven.plugins:maven-surefire-plugin:3.0.0-M7:test 
+		  Solution: add the following to the mvn surefire plugin - configuration tag
+			<configuration>
+				<testFailureIgnore>true</testFailureIgnore>
+		    </configuration>
+			
+			
+			
+		3) Run test case using run.bat:
+		  -----------------------------
+		  bat is an executable file
+		  1. Create a run.bat file under project root directory in your PC. 
+			1. Notepad++ > new file > save as > run > take the .bat extension
+			
+		  2. Right click the run.bat file > edit > paste the above two commands here
+				cd C:\Sheetal\QA_training\eclipse-workspace\SeleniumHybridFramework
+				mvn clean install
+				
+		  3. It will run both the commands once you go to the project root directory and double click it. 
+			 It will automatically open the cmd propmt, execute the commands and close it.
+			 
+		  4. The report can be seen under test-output
+			
+		
+		
+		
+		4) Run test case using Jenkins:
+		  -----------------------------
+		  Maven is a build tool. DevOps use this tool to create the build on the code pushed by the developers in GitHub.
+		  Similarly they use Jenkins to run the automated test cases again pushed by the QA automation testers in the GitHub repo. 
+		  After successful test run Jenkins internally mail all the team members that the build is successful. 
+		  Then QA tean can download the build from Jenkins and start running their test on it.
+		  This process is called Continous Integration.
+		  
+		  Jenkins is a part of DevOPs environment. It can not be installed in the QA environment.
+		  Jenkins is a Continous Integration tool.
+		  
+		 1. Download jenkins: https://www.jenkins.io/download/
+		 2. Download windows version from LTS
+		 3. Double click the downloaded file to install it
+		 
+		 
+		Jenkins startup password- used just for one time setup. After that its gone.
+		Default port for Jenkins-- localhost:8080
+		
+		Jenkins id and password
+			user-admin
+			pwd-admin
+			email- sheetal.garg05@gmail.com
+			
+			
+			
+		Things to do in Jenkins:
+		------------------------
+		
+		- Add source location of GIT. 
+			Manage Jenkins---> Global Tool Configuration--> Git--> Path to git executable--> C:\Program Files\Git\bin\git.exe (path\git.exe)--> save
+			
+		- Maven Path
+			Manage Jenkins---> Global Tool Configuration--> Maven --> Name : M2_HOME (Name of Maven path in environment path variables) --> Save
+		
+		- JDK path setup: Configure JAVA_HOME
+			Dashboard > Manage Jenkins > Global Tool Configuration > JDK > Add JDK > Give some name to the JDK > 
+			Dashboard > Mange Jenkins > Configure System > Global Properties > Envirinment variables > Add an environment variable for java > 
+			Name: JAVA_HOME ; Value: Give the home path for JDK -- C:\Program Files\Java\jdk-17    > Add > Apply and Save
+		
+		
+		
+		Setting up Jenkins:
+		-------------------
+		1. Download Jenkins for windows from https://www.jenkins.io/download/
+		2. Double click the msi file to install on local
+		3. Open the local port: localhost:8080
+		4. Give one time password for set up. Its address will be given on the first screen.
+		5. Make an account. Give admin for all fields with your email address.
+		6. Jenkins is setup on your local machine.
+		
+		
+		How to execute project using Jenkins:
+		-------------------------------------
+		1) Execute project using freestyle project (using run.bat)
+		   -------------------------------------------------------
+			1. Go to the Dashboard > New Item > Give the name of the Project > Select Freestyle Project > Ok > Project Pagee
+			   Write Description if needed > Come down to Build setup > Click Add Build step > Execute Windows batch command > 
+			
+				Give the following commands:
+				
+				cd C:\Sheetal\QA_training\eclipse-workspace\SeleniumHybridFramework
+				run.bat
+				
+				cd C:\Sheetal\QA_training\eclipse-workspace\SeleniumHybridFramework --> This command will take it to the project location
+				run.bat --> You shoud have a run.bat file in your project root directory with the commands to run the project from the CLI
+				
+			2. Apply > save > Directed to Project dashboard > Build now
+			3. To make any changes in the project:
+				Click configure 
+			4. In Jenkins the project execution is seamless meaning we do not see the browser opening and the tests running. Only thing we see 
+			   is the generation of logs as it is run on devops environment
+			5. Logs can be seen on the 3 dots while the project is running
+			6. Once the build is successful a geen tick will come on the side of the project name.
+			
+			
+		2) Execute project using Maven project (using pom.xml) - in real time this approach is used
+		   ----------------------------------------------------
+			1. Install maven plugins in jenkins :
+				Dashboard > Manage Jenkins > Manage Plugins > Available > Type Maven > Select the following > Install without restart > 
+					- Maven Integration
+					- Maven Release-Plug-in
+					- Maven Info
+					- Repository Connector
+					- Maven Invoker
+					- Maven Repository Scheduled Cleanup
+					- Maven Repository Server
+					
+					
+			2. It will install all the plugins > Select Go back to the top of the page > You need to re-login > Maven plugins are setup
+			
+			3. JDK path setup: Configure JAVA_HOME
+				Dashboard > Manage Jenkins > Global Tool Configuration > JDK > Add JDK > Give some name to the JDK > 
+				Dashboard > Mange Jenkins > Configure System > Global Properties > Envirinment variables > Add an environment variable for java > 
+				Name: JAVA_HOME ; Value: Give the home path for JDK -- C:\Program Files\Java\jdk-17    > Add > Apply and Save
+
+			4. Execute project using Maven project (using pom.xml)
+				Dashboard > New Item > Give the name of the Project > Select Maven Project > Ok > Project Page
+				Write Description if needed > Come down to Build > Root POM
+					Root POM : C:\Sheetal\QA_training\eclipse-workspace\SeleniumHybridFramework\pom.xml 
+					Goals and Options : Clean Install (Or any other maven command)
+					
+				Apply and Save > Project Page > build now 
+					
+			5. In Post Build Actions > Editable Mail Notification can be setup to notify all the team members regarding the information of the build
+			
+			6. See the test reports in your project root directory in the test-output and Screenshots folders.
+			
+			
+		
+		
+			
+	3) Maintenance:
+	  -------------
+	  Pre-requisites:
+	  1. Install Git in your local system
+			https://git-scm.com/download/win > 64 bit Git for windows setup > download an .exe file > install > while installing select 
+			Git Bash here, GIt GUI here > Use the Nano editor by default > use Git from Git Bash only > use OpenSSI > Use the OpenSSL library >
+			Checkout Windows-style, commit Unix-style line endings > Use MinTTY > Enable file system caching & Enable Git Credential Manager >
+			Install > after 10-15 min > Finish
+	  2. To check whether git is installed properly > go t any directory/folder in your pc > right click > Git BASH here & Git GUI here option appear
+	  3. Select Git Bash here > Give a command prompt (Git BASH shell) > run git commands from here - commit, push, pull, update
+	  4. https://github.com/ > create GitHub account > create a remote Repository
+			Remote Repository URL for the project InetBankingV1 --> https://github.com/GargSheetal/InetBankingV1.git
+	  
+	 
+		
+		The build is first created in the devops environment using Maven by importing it from GitHub repositosy. 
+		Then the build is tested against Sanity and Regression test cases Using Jenkins. These test cases are also saved in the GitHub repository 
+		by the QA Team. 
+		Once the build is passed, an email is sent to all the team members and the QA team download the stable build from GitHub Repository 
+		for functional testing. This process continous day after day. This is called as Continous Integration process.
+		
+		
+		## Created an additional GitHub profile to add as team mate
+			kanhak*p*@g*
+			Pwd: saved in google
+			user-sheetalgargqa
+
+
+	Git and GitHub:
+	--------------
+
+	GIT--> It is a Configuration management tool or Version Control tool. It is Local Repository installed on your local work stations.
+			GIT is a revision control system used to track changes in computer files. It's a tool to manage your code and file history while
+			coordinating work remotely on those files with others.
+								
+									checkin process
+							 --------------------------------------------->
+							   add				  commit			 push
+			working directory -----> staging area ------> local .git -----> remote (.github)
+																	 <-----
+																	  fetch
+							<------------------------------------------------
+											pull (checkout process) 
+													
+									
+	GITHUB--> It is Remote Repository. It is a hosting servive for git repositories. Git is the tool, while GitHub is the serice to use Git.
+
+	Git and GitHub Integration:
+	---------------------------
+		* Branching
+		* Integration
+		
+		
+		1) Using Git and GitHub from Eclipse:
+	      -----------------------------------
+		
+		Steps for creating a local repository in eclipse:
+		-------------------------------------------------
+		1) With your project open in Eclipse, right-click on the project name, select Team and  Share Project.
+		2) It opens a configure Git Repository pop up. Select "Use or create repo in parent folder of project" check box.
+		3) Select the next check box for the repository
+		4) Select Create Repository 
+		5) Select Finish. 
+		6) Under Repositories, a new repo will be created.
+		
+		
+		
+		Steps to add the project to the local git repository: (Commit)
+		-----------------------------------------------------
+		1) With your project open in Eclipse, right-click on the project name, select Team & select Add to Index(this adds files to the staging area).
+		2) Again right-click on the project name, select Team and  select Commit. It opens up a new tab - "Git Staging".
+		3) In this new tab, you can write some comments in the "Commit Message" section.
+		4) Select "Commit" at the bottom. It commits the project in the local repository. 
+		5) Close window. You can check the project entry in the local repo under "Working tree" in the src folder.
+		
+		
+		
+		Steps to create Master Repository in GitHub:
+		--------------------------------------------
+		1) Login to your github account.
+		2) Select new/+ sign and select New Repository.
+		3) Give it a name. (Can be same as Project name)
+		4) Select create repository.
+		5) You will get a url. Select the url
+		6) Go to your local repo. Right click on the local repo. Select Remote. Select Push.
+		7) Paste the url
+		8) Provide the github user and password. 
+			
+			Note:  
+			------
+			Refer---> https://stackoverflow.com/questions/68790276/pushing-from-eclipse-to-my-github-repository-via-https-stopped-working-git-rec
+			
+			Since August 13, 2021, GitHub does not support authentication via HTTPS with your GitHub account password for
+			security reasons anymore.
+			
+			As solution, use either
+
+			1) a GitHub specific Personal access tokens as password instead of your previously used GitHub account password or
+			2) SSH with an SSH key of which the private and public key is on your local machine and configured in Eclipse and the public key 
+			   is uploaded to your GitHub account instead.
+			   
+			Personal access token (GitHub specific):
+			----------------------------------------
+			1) Go to your GitHub account to Settings > Developer settings > Personal access tokens website:
+				1) Click the Generate new token button in the upper right
+				2) Enter a Note, e.g. GitHub repo token
+				3) Choose Expiration, e.g. No expiration
+				4) Tick the checkbox repo
+				5) Click the Generate token button at the bottom
+				6) Copy the generated token to the clipboard
+				
+			2) In Eclipse, in the Git Repositories view:
+				1) Right-click the Remotes sub-node for GitHub (origin or the name you have chosen when you have cloned the repository) and 
+				choose Configure Push...
+				2) Click the Change... button to change the URI in the upper right
+				3) Replace the password with with the copied generated GitHub token
+				4) Click Finish and Save to apply the changes
+				
+				
+			SSH:
+			----
+			1) Create an SSH key (skip this step when you already have one):
+				1) In Eclipse, in the preferences General > Network Connections > SSH2 tab Key Management hit the Generate RSA Key... button
+				2) Hit Save Private Key... and choose a location, preferably the subfolder .ssh of your user home directory.
+				
+			2) Upload public key to your GitHub account:
+				1) For a new created key, copy the string shown in the Key Management tab to the clipboard; for an existing key add it in the preferences General > Network Connections > SSH2 tab General and copy the content of the public key file <name>.pub
+				2) Go to your GitHub account settings to the SSH and GPG keys section and hit the New SSH key button
+				3) Paste the copied public key into the Key field
+			3) Change HTTPS to SSH URLs of already cloned repositories:
+				1) In Eclipse, in the Git Repositories view right-click the repository and choose Properties and click the Open button
+				2) In the text editor of the config file change the remote URL as follows:
+
+				HTTPS (old; does not work for push anymore):
+				url = https://github.com/<username>/<repo>.git
+
+				SSH (new):
+				url = git@github.com:<username>/<repo>.git
+			
+
+		
+		
+		Steps to share the project repository with team engineers:
+		----------------------------------------------------------
+		1) Go to settings in the GitHub project.
+		2) Select collaborators.
+		3) Add people.
+		4) Copy Invite Link and share it with the team.
+		
+		
+		
+		Steps to clone the project on Team's system:
+		-------------------------------------------
+		1) Login to your github account
+		2) Copy the url shared by the Lead in the address bar. Enter
+		3) Accept invitation to collaborate on the project. You are now part of the project
+		4) Open Eclipse. Go to Git Repositories through quick access.
+		5) Select the option - "Clone a git repository"
+		6) Provide the url of the repository shared by the lead in the pop up.
+		7) Provide your user and password. click Next. 
+		8) Master will automatically be selected. Click Next
+		9) Click next and finish.
+		10) Refresh Git repositories. Here a new repository is created.
+		11) In the project explorer right click, select import--> project from git--> existing local repository--> next 
+		12) Select the existing local project repository--> next--> import existing eclipse project--> finish
+		
+		
+		
+		Steps for the tester to commit the code in a new branch:
+		--------------------------------------------------------
+		1) With your project open in Eclipse, right-click on the project name, select Team & select Add to Index(this adds files to the staging area).
+		2) In the project git repository--> branches--> right click on local---> select new branch---> name the branch in the pop up window--> finish
+		3) Commit the code in the new branch. Right click on the project---> teams---> commit---> branch will be selected by default
+		4) Add comments if required--> commit--> it will be committed to local repo
+		5) right click on the branch--> select Push branch--> Select Merge---> preview
+		6) Provide user and password. For password generate a token from github account and give it all access(check all boxes)
+		7) Push
+		
+		
+		
+		Steps to create Pull request:
+		-----------------------------
+		1) Go to the GitHub repo---> select the newly created branch---> compare and pull----> opens a new window
+		2) Can give comments for the lead, add reviewers ---> select Create Pull Request
+		
+		
+	----------------------------------------------------------------------------------------------------------------------------------------	
+		
+		
+		2) Using Git and GitHub from Git BASH here command line:
+	      ------------------------------------------------------
+		  
+		  
+		   Workflow:
+		   ---------
+	  
+		  Working Directory					Staging Area				Git Repository
+							
+							Add command					Commit Command				   Push Command
+			Untracked File	------------>	Tracked File ------------->	Committed File ------------> Remote file
+			(File in the 					(Files added			   (Files commited 				 (Files pushed in	
+			 eclipse)						in the local Git 			in the git Repo)			  GitHub)
+												repo)
+		
+		  
+		  
+		  
+		  Steps for adding files in local Git repository:
+		  -----------------------------------------------
+		  1. Go to project root directory > right click > Git BASH here 
+		  2. git init --> create an empty git repository (Local Repo)
+		  3. git remote add origin "https://github.com/GargSheetal/InetBankingV1.git"  --> associate local repo to remote repo
+		  4. git status  --> give the status of the files that are committed and that are still untracked i.e. ready to commit in local repo
+								Untracked files appear red in color and are in the form of folders
+		  5. git add -A --> this will add all the files to staging area
+		  6. git status  --> After adding the files to staging area the files appear green and are separate files
+		  7. clear --> this command clears the command line
+		  
+			Following commands need to executed just the first time
+		  8. git confit --global user.name "GargSheetal"		--> provide the github username
+		  9. git confit --global user.email "sheetal.garg05@gmail.com"		---> provide github email
+		  10. git commit -m "add comments here regarding any updates made in the code, additon, deletion etc"  --> commiting files to local git
+		  11. git add Test1.txt --> It will add only this file to the index (Staging area)					
+		  
+		  Steps for adding files in GitHub:
+		  ---------------------------------
+		  1. git push -u origin master  --> commit all the files from git to GitHub
+		  
+		  
+		  Steps for pulling files from GitHub to project root directory:
+		  --------------------------------------------------------------
+		  1. git pull origin master     --> pulls the code from github to local
+		  
+		  
+		  Checking logs using git:
+		  ------------------------
+		  1. git log  -->  Checking which actions have been performed on the git repository i.e. logs
+		  
+		  
+		  4) Executing project Using Jenkins by importing code from github:
+		     --------------------------------------------------------------
+		   1. Open jenkins > dashboard > new item > name the project > maven project > Source code management > git > repository url >
+		      Give url of your git project repository (https://github.com/GargSheetal/InetBankingV1.git) > Build > root POM > pom.xml
+			  > goals and options > clean install > apply & save
+		   
+		   2. Go to project dashboard > build now
+		   
+		   
+		  
+		  
+		  

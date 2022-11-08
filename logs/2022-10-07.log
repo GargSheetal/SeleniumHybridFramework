@@ -1,0 +1,16 @@
+2022-10-07 00:01:14.410 [main] INFO  com.inetbanking.testcases.BaseClass - Username provided
+2022-10-07 00:01:15.997 [main] INFO  com.inetbanking.testcases.BaseClass - Password provided
+2022-10-07 00:01:24.549 [main] INFO  com.inetbanking.testcases.BaseClass - Providing customer details
+2022-10-07 00:01:31.851 [main] INFO  com.inetbanking.testcases.BaseClass - Validation Started
+2022-10-07 00:04:33.548 [main] INFO  com.inetbanking.testcases.BaseClass - Username provided
+2022-10-07 00:04:33.832 [main] INFO  com.inetbanking.testcases.BaseClass - Password provided
+2022-10-07 00:04:43.877 [main] INFO  com.inetbanking.testcases.BaseClass - Providing customer details
+2022-10-07 00:04:51.139 [main] INFO  com.inetbanking.testcases.BaseClass - Validation Started
+2022-10-07 00:10:24.176 [main] INFO  com.inetbanking.testcases.BaseClass - Username provided
+2022-10-07 00:10:24.316 [main] INFO  com.inetbanking.testcases.BaseClass - Password provided
+2022-10-07 00:10:33.212 [main] INFO  com.inetbanking.testcases.BaseClass - Providing customer details
+2022-10-07 00:10:40.522 [main] INFO  com.inetbanking.testcases.BaseClass - Validation Started
+2022-10-07 00:11:42.080 [main] INFO  com.inetbanking.testcases.BaseClass - Username provided
+2022-10-07 00:11:42.944 [main] INFO  com.inetbanking.testcases.BaseClass - Password provided
+2022-10-07 00:11:52.559 [main] INFO  com.inetbanking.testcases.BaseClass - Providing customer details
+2022-10-07 00:12:00.110 [main] INFO  com.inetbanking.testcases.BaseClass - Validation Started

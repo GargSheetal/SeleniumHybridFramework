@@ -1,0 +1,24 @@
+2022-10-14 12:12:48.916 [main] INFO  com.inetbanking.testcases.BaseClass - Website URL is opened successfully..
+2022-10-14 12:12:49.109 [main] INFO  com.inetbanking.testcases.BaseClass - Entered Username..
+2022-10-14 12:12:49.404 [main] INFO  com.inetbanking.testcases.BaseClass - Entered Password..
+2022-10-14 12:12:52.136 [main] INFO  com.inetbanking.testcases.BaseClass - Login test - TC_loginTest_001 Passed
+2022-10-14 12:13:02.433 [main] INFO  com.inetbanking.testcases.BaseClass - Username is provided
+2022-10-14 12:13:02.556 [main] INFO  com.inetbanking.testcases.BaseClass - Password is provided
+2022-10-14 12:13:07.174 [main] INFO  com.inetbanking.testcases.BaseClass - Login Passed with Valid Data
+2022-10-14 12:13:11.696 [main] INFO  com.inetbanking.testcases.BaseClass - Username is provided
+2022-10-14 12:13:11.884 [main] INFO  com.inetbanking.testcases.BaseClass - Password is provided
+2022-10-14 12:13:15.911 [main] WARN  com.inetbanking.testcases.BaseClass - Login Failed with Invalid Data
+2022-10-14 12:13:16.331 [main] INFO  com.inetbanking.testcases.BaseClass - Username is provided
+2022-10-14 12:13:16.449 [main] INFO  com.inetbanking.testcases.BaseClass - Password is provided
+2022-10-14 12:13:21.168 [main] WARN  com.inetbanking.testcases.BaseClass - Login Failed with Invalid Data
+2022-10-14 12:13:21.344 [main] INFO  com.inetbanking.testcases.BaseClass - Username is provided
+2022-10-14 12:13:21.800 [main] INFO  com.inetbanking.testcases.BaseClass - Password is provided
+2022-10-14 12:13:26.193 [main] INFO  com.inetbanking.testcases.BaseClass - Login Passed with Valid Data
+2022-10-14 12:13:31.581 [main] INFO  com.inetbanking.testcases.BaseClass - Username is provided
+2022-10-14 12:13:31.669 [main] INFO  com.inetbanking.testcases.BaseClass - Password is provided
+2022-10-14 12:13:36.244 [main] WARN  com.inetbanking.testcases.BaseClass - Login Failed with Invalid Data
+2022-10-14 12:13:44.721 [main] INFO  com.inetbanking.testcases.BaseClass - Username provided
+2022-10-14 12:13:44.841 [main] INFO  com.inetbanking.testcases.BaseClass - Password provided
+2022-10-14 12:13:53.811 [main] INFO  com.inetbanking.testcases.BaseClass - Providing customer details
+2022-10-14 12:14:04.075 [main] INFO  com.inetbanking.testcases.BaseClass - Validation Started
+2022-10-14 12:14:04.115 [main] INFO  com.inetbanking.testcases.BaseClass - Test case passed

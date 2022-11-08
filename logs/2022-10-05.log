@@ -1,0 +1,30 @@
+2022-10-05 00:03:26.828 [main] INFO  com.inetbanking.testcases.BaseClass - Website URL is opened successfully..
+2022-10-05 00:03:26.991 [main] INFO  com.inetbanking.testcases.BaseClass - Entered Username..
+2022-10-05 00:03:27.113 [main] INFO  com.inetbanking.testcases.BaseClass - Entered Password..
+2022-10-05 00:03:28.281 [main] INFO  com.inetbanking.testcases.BaseClass - Login test - TC_loginTest_001 Passed
+2022-10-05 00:17:20.444 [main] INFO  com.inetbanking.testcases.BaseClass - Entered Username..
+2022-10-05 00:17:20.878 [main] INFO  com.inetbanking.testcases.BaseClass - Entered Password..
+2022-10-05 00:17:21.955 [main] INFO  com.inetbanking.testcases.BaseClass - Login test - TC_loginTest_001 Passed
+2022-10-05 00:20:43.003 [main] INFO  com.inetbanking.testcases.BaseClass - Entered Username..
+2022-10-05 00:20:44.210 [main] INFO  com.inetbanking.testcases.BaseClass - Entered Password..
+2022-10-05 00:20:45.307 [main] INFO  com.inetbanking.testcases.BaseClass - Login test - TC_loginTest_001 Passed
+2022-10-05 11:47:06.233 [main] INFO  com.inetbanking.testcases.BaseClass - Website URL is opened successfully..
+2022-10-05 11:47:06.725 [main] INFO  com.inetbanking.testcases.BaseClass - Entered Username..
+2022-10-05 11:47:06.871 [main] INFO  com.inetbanking.testcases.BaseClass - Entered Password..
+2022-10-05 11:47:08.000 [main] INFO  com.inetbanking.testcases.BaseClass - Login test - TC_loginTest_001 Passed
+2022-10-05 13:48:32.697 [main] INFO  com.inetbanking.testcases.BaseClass - Website URL is opened successfully..
+2022-10-05 13:48:32.895 [main] INFO  com.inetbanking.testcases.BaseClass - Entered Username..
+2022-10-05 13:48:33.371 [main] INFO  com.inetbanking.testcases.BaseClass - Entered Password..
+2022-10-05 13:48:34.866 [main] INFO  com.inetbanking.testcases.BaseClass - Login test - TC_loginTest_001 Passed
+2022-10-05 14:36:09.844 [main] INFO  com.inetbanking.testcases.BaseClass - Website URL is opened successfully..
+2022-10-05 14:36:10.048 [main] INFO  com.inetbanking.testcases.BaseClass - Entered Username..
+2022-10-05 14:36:10.181 [main] INFO  com.inetbanking.testcases.BaseClass - Entered Password..
+2022-10-05 14:36:11.704 [main] INFO  com.inetbanking.testcases.BaseClass - Login test - TC_loginTest_001 Passed
+2022-10-05 14:37:34.974 [main] INFO  com.inetbanking.testcases.BaseClass - Website URL is opened successfully..
+2022-10-05 14:37:35.184 [main] INFO  com.inetbanking.testcases.BaseClass - Entered Username..
+2022-10-05 14:37:35.329 [main] INFO  com.inetbanking.testcases.BaseClass - Entered Password..
+2022-10-05 14:37:36.113 [main] INFO  com.inetbanking.testcases.BaseClass - Login test - TC_loginTest_001 Passed
+2022-10-05 14:38:35.623 [main] INFO  com.inetbanking.testcases.BaseClass - Website URL is opened successfully..
+2022-10-05 14:38:37.024 [main] INFO  com.inetbanking.testcases.BaseClass - Entered Username..
+2022-10-05 14:38:37.166 [main] INFO  com.inetbanking.testcases.BaseClass - Entered Password..
+2022-10-05 14:38:38.757 [main] INFO  com.inetbanking.testcases.BaseClass - Login test - TC_loginTest_001 Passed
